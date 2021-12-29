@@ -1,0 +1,56 @@
+{
+	"log": {
+		//"loglevel": "warning",
+		//"access": "/access.log",
+		//"error": "/error.log"
+	},
+	"inbound": {
+		"port": 1087,
+		"protocol": "socks",  //  SOCKS 5//socks,http...
+	        "sniffing": {
+		  "enabled": true,
+		  "destOverride": ["http", "tls"]
+	        },
+		"settings": {
+			"auth": "noauth", //socksï¼noauth  socks 
+			"udp": true
+		}
+	},
+	"inboundDetour": [{
+		"protocol": "http",  //socks,http...
+		"port": 8080,
+		"settings": {"auth": "noauth", "udp": true}
+	}],
+	"outbound": {
+		"protocol": "shadowsocks",
+		"settings": {
+			"servers":
+			[
+				{
+					"email": "love@v2ray.com",
+					"address": "192.36.27.59",
+					"port": 989,
+					"method": "aes-256-cfb",
+					"password": "f8f7aCzcPKbsF8p3",
+					"ota": false,
+					"level": 0
+				}
+			]
+		}
+	},
+
+	"levels": {
+		"100": {
+			"handshake": 4,
+			"connIdle": 300,
+			"uplinkOnly": 2,
+			"downlinkOnly": 5,
+			"statsUserUplink": false,
+			"statsUserDownlink": false
+		}
+	},
+	"system": {
+		"statsInboundUplink": false,
+		"statsInboundDownlink": false
+	}
+}
