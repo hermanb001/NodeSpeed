@@ -116,8 +116,8 @@ class PingIP():
         # 启动v2ray
         # s = subprocess.Popen(["./clients/v2ray-core/v2ray","--config","%s/clients/v2ray-core/config.json" % os.getcwd()],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
         # s = subprocess.Popen(["./clients/v2ray-core/v2ray","--config","{}/clients/v2ray-core/config.json".format(os.getcwd())],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
-        s = subprocess.Popen(["./clients/v2ray-core/v2ray.exe","--config","{}/clients/v2ray-core/config.json".format(os.getcwd())],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
-        # s = subprocess.Popen(["./clients/v2ray-core/v2ray","--config","%s/clients/v2ray-core/config.json" % os.getcwd()])
+        # s = subprocess.Popen(["./clients/v2ray-core/v2ray.exe","--config","{}/clients/v2ray-core/config.json".format(os.getcwd())],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+        s = subprocess.Popen(["./clients/v2ray-core/v2ray","--config","%s/clients/v2ray-core/config.json" % os.getcwd()])
         print('s.pid:' + str(s.pid))
         '''
         serverStr = '127.0.0.1'
