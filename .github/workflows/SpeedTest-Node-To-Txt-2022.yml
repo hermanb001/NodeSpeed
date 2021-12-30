@@ -51,9 +51,10 @@ jobs:
         env:
           RESURL: ${{ secrets.RESURL }}
         run: |
+          chmod 7777 ./clients/xray/xray
           chmod 7777 ./clients/v2ray-core/v2ray
           chmod 7777 ./clients/v2ray-core/v2ctl
-          #chmod 7777 ./clients/v2ray-core/config.json
+          chmod 7777 ./clients/v2ray-core/v2ctl
           #python ./main.py -u "http://13.212.72.222:8080/ipns/k51qzi5uqu5dlfnig6lej7l7aes2d5oed6a4435s08ccftne1hq09ac1bulz2f/node.txt"
           python ./test.py -u https://raw.githubusercontent.com/vpei/Free-Node-Merge/main/out/node.txt
           echo "::set-output name=status::success"
