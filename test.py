@@ -27,9 +27,9 @@ url = 'https://raw.githubusercontent.com/vpei/Free-Node-Merge/main/out/node.txt'
 print('url: ' + url)
 
 # 测试单个节点
-j = 'trojan://8cf83f44-79ff-4e50-be1a-585c82338912@t2.ssrsub.com:8443?sni=douyincdn.com#v2cross.com'
-onenode = PingIP.node_config_json(j, confile)
-kbs = PingIP.nodespeedtest()
+#j = 'trojan://8cf83f44-79ff-4e50-be1a-585c82338912@t2.ssrsub.com:8443?sni=douyincdn.com#v2cross.com'
+#onenode = PingIP.node_config_json(j, confile)
+#kbs = PingIP.nodespeedtest()
 
 Departs = []#待排序列表
 class Department:#自定义的元素
