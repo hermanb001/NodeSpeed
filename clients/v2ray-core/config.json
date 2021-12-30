@@ -1,0 +1,55 @@
+{
+	"log": {
+		//"loglevel": "warning",
+		//"access": "/access.log",
+		//"error": "/error.log"
+	},
+	"inbound": {
+		"port": 1087,
+		"protocol": "socks",  //  SOCKS 5//socks,http...
+	        "sniffing": {
+		  "enabled": true,
+		  "destOverride": ["http", "tls"]
+	        },
+		"settings": {
+			"auth": "noauth", //socksï¼noauth  socks 
+			"udp": true
+		}
+	},
+	"inboundDetour": [{
+		"protocol": "http",  //socks,http...
+		"port": 8080,
+		"settings": {"auth": "noauth", "udp": true}
+	}],
+	"outbound": {
+		"protocol": "trojan",
+		"settings": {
+			"servers":
+			[
+				{
+					"email": "love@v2ray.com",
+					"address": "t2.ssrsub.com",
+					"port": 8443,
+					"password": "8cf83f44-79ff-4e50-be1a-585c82338912",
+					"sni": "sni=douyincdn.com",
+					"level": 0
+				}
+			]
+		}
+	},
+
+	"levels": {
+		"100": {
+			"handshake": 4,
+			"connIdle": 300,
+			"uplinkOnly": 2,
+			"downlinkOnly": 5,
+			"statsUserUplink": false,
+			"statsUserDownlink": false
+		}
+	},
+	"system": {
+		"statsInboundUplink": false,
+		"statsInboundDownlink": false
+	}
+}

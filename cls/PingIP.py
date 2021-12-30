@@ -118,8 +118,8 @@ class PingIP():
         # s = subprocess.Popen(["./clients/v2ray-core/v2ray","--config","{}/clients/config.json".format(os.getcwd())],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
         # s = subprocess.Popen(["./clients/v2ray-core/v2ray.exe","--config","{}/clients/config.json".format(os.getcwd())],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
         # s = subprocess.Popen(["./clients/v2ray-core/v2ray","--config","%s/clients/config.json" % os.getcwd()])
-        # s = subprocess.Popen(["./clients/xray/xray.exe","--config","{}/clients/config.json".format(os.getcwd())],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
-        s = subprocess.Popen(["./clients/xray/xray","--config","%s/clients/config.json" % os.getcwd()])
+        s = subprocess.Popen(["./clients/xray/xray.exe","--config","{}/clients/config.json".format(os.getcwd())],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+        # s = subprocess.Popen(["./clients/xray/xray","--config","%s/clients/config.json" % os.getcwd()])
         print('s.pid:' + str(s.pid))
         '''
         serverStr = '127.0.0.1'
@@ -231,6 +231,39 @@ class PingIP():
             onenode = onenode + '					"level": 0\n'
             onenode = onenode + '				}\n'
             onenode = onenode + '			]\n'
+            onenode = onenode + '		}\n'
+            onenode = onenode + '	},'
+        elif(j.find('trojan://') == 0):
+            #trojan://8cf83f44-79ff-4e50-be1a-585c82338912@t2.ssrsub.com:8443?sni=douyincdn.com#name
+            onenode = j[9:].replace('?', '#')
+            password = onenode.split('@', 1)[0]
+            address = StrText.get_str_btw(onenode, '@', ':')
+            if(onenode.find('#') == -1):
+                onenode = onenode + '#' + address
+            port = StrText.get_str_btw(onenode, ':', '#')
+            sni = ''
+            if(onenode.find('sni') > -1):
+                sni = StrText.get_str_btw(onenode, 'sni=', '#')
+
+            onenode = '	"outbound": {\n'
+            onenode = onenode + '		"protocol": "trojan",\n'
+            onenode = onenode + '		"settings": {\n'
+            onenode = onenode + '			"servers":\n'
+            onenode = onenode + '			[\n'
+            onenode = onenode + '				{\n'
+            onenode = onenode + '					"email": "love@v2ray.com",\n'
+            onenode = onenode + '					"address": "' + address + '",\n'
+            onenode = onenode + '					"port": ' + port + ',\n'
+            onenode = onenode + '					"password": "' + password + '",\n'
+            onenode = onenode + '					"level": 0\n'
+            onenode = onenode + '				}\n'
+            onenode = onenode + '			]\n'
+            onenode = onenode + '		},\n'
+            onenode = onenode + '		"streamSettings": {\n'
+            if(sni != ''):
+                onenode = onenode + '			"security": "tcp",\n'
+                onenode = onenode + '			"security": "tls",\n'
+                onenode = onenode + '			"sni": "' + sni + '"\n'
             onenode = onenode + '		}\n'
             onenode = onenode + '	},'
         elif(j.find('vmess://') == 0):
