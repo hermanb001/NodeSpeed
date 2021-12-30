@@ -299,8 +299,16 @@ class PingIP():
             onenode = onenode + '            "network": "' + node['net'] + '",\n'
             if(node['tls'] == 'tls' or node['tls'] == 'True' or node['tls'] == 'true'):
                 onenode = onenode + '            "security": "tls",\n'
-                if(aonenode.find('"tls":') > -1 and aonenode.find('"sni":') > -1):
-                    onenode = onenode + '            "tlsSettings": {"sni":"' + node['sni'] + '"},\n'
+                if(aonenode.find('"sni":') > -1):
+                    onenode = onenode + '            "sni":"' + node['sni'] + '",\n'
+                if(aonenode.find('certificateFile') > -1 and aonenode.find('keyFile:') > -1):
+                    onenode = onenode + '            "tlsSettings": {\n'
+                    onenode = onenode + '                "certificates": [\n'
+                    onenode = onenode + '                "{\n'
+                    onenode = onenode + '                "    "certificateFile": "/etc/v2ray/v2ray.crt", // 证书文件 \n'
+                    onenode = onenode + '                "    "keyFile": "/etc/v2ray/v2ray.key" // 密钥文件 \n'
+                    onenode = onenode + '                "}]\n'
+                    onenode = onenode + '            },\n'
                 else: #none ''
                     onenode = onenode + '            "tlsSettings": {},\n'
             else:
