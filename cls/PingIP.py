@@ -114,10 +114,12 @@ class PingIP():
             
     def nodespeedtest():
         # 启动v2ray
-        # s = subprocess.Popen(["./clients/v2ray-core/v2ray","--config","%s/clients/v2ray-core/config.json" % os.getcwd()],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
-        # s = subprocess.Popen(["./clients/v2ray-core/v2ray","--config","{}/clients/v2ray-core/config.json".format(os.getcwd())],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
-        # s = subprocess.Popen(["./clients/v2ray-core/v2ray.exe","--config","{}/clients/v2ray-core/config.json".format(os.getcwd())],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
-        s = subprocess.Popen(["./clients/v2ray-core/v2ray","--config","%s/clients/v2ray-core/config.json" % os.getcwd()])
+        # s = subprocess.Popen(["./clients/v2ray-core/v2ray","--config","%s/clients/config.json" % os.getcwd()],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+        # s = subprocess.Popen(["./clients/v2ray-core/v2ray","--config","{}/clients/config.json".format(os.getcwd())],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+        # s = subprocess.Popen(["./clients/v2ray-core/v2ray.exe","--config","{}/clients/config.json".format(os.getcwd())],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+        # s = subprocess.Popen(["./clients/v2ray-core/v2ray","--config","%s/clients/config.json" % os.getcwd()])
+        # s = subprocess.Popen(["./clients/xray/xray.exe","--config","{}/clients/config.json".format(os.getcwd())],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+        s = subprocess.Popen(["./clients/xray/xray","--config","%s/clients/config.json" % os.getcwd()])
         print('s.pid:' + str(s.pid))
         '''
         serverStr = '127.0.0.1'
@@ -295,22 +297,20 @@ class PingIP():
             onenode = onenode + '        "streamSettings":\n'
             onenode = onenode + '        {\n'
             onenode = onenode + '            "network": "' + node['net'] + '",\n'
-            if(node['type'] != 'vmess'):
-                onenode = onenode + '            "security": "' + node['type'] + '",\n'
-            else:
-                onenode = onenode + '            "security": "none",\n'
-            if(aonenode.find('"tls":') > -1):
-                if(node['tls'] == 'tls' or node['tls'] == 'True'):
-                    if(aonenode.find('"sni":') > -1):
-                        onenode = onenode + '            "tlsSettings": {"sni":"' + node['sni'] + '"},\n'
+            if(node['tls'] == 'tls' or node['tls'] == 'True' or node['tls'] == 'true'):
+                onenode = onenode + '            "security": "tls",\n'
+                if(aonenode.find('"tls":') > -1 and aonenode.find('"sni":') > -1):
+                    onenode = onenode + '            "tlsSettings": {"sni":"' + node['sni'] + '"},\n'
                 else: #none ''
                     onenode = onenode + '            "tlsSettings": {},\n'
-            else: #none ''
-                onenode = onenode + '            "tlsSettings": {},\n'
-            onenode = onenode + '            "tcpSettings": {},\n'
-            onenode = onenode + '            "kcpSettings": {},\n'
-
-            if(node['net'] == 'ws'):
+            else:
+                onenode = onenode + '            "security": "none",\n'
+            # 不同传输协议，配置不同信息
+            if(node['net'] == 'tcp'):
+                onenode = onenode + '            "tcpSettings": {}\n'
+            elif(node['net'] == 'kcp'):
+                onenode = onenode + '            "kcpSettings": {}\n'
+            elif(node['net'] == 'ws'):
                 onenode = onenode + '            "wsSettings": \n'
                 onenode = onenode + '            {\n'
                 if(aonenode.find('"path":') > -1 and aonenode.find('"ws-headers":') > -1):
@@ -323,14 +323,17 @@ class PingIP():
                         onenode = onenode + '                "headers": {"host": "' + node['HOST'] + '"}\n'
                 else:
                     onenode = onenode + '                "path": "' + node['path'] + '"\n'
-                onenode = onenode + '            },\n'
-            else:
-                onenode = onenode + '            "wsSettings": {},\n'
+                onenode = onenode + '            }\n'
+            elif(node['net'] == 'quic'):
+                onenode = onenode + '            "quicSettings": {}\n'
+            elif(node['net'] == 'grpc'):
+                onenode = onenode + '            "grpcSettings": {\n'
+                onenode = onenode + '                "serviceName": "" //填写你的 ServiceName\n'
+                onenode = onenode + '            }\n'
             #if(node['net'] == 'http'):
             #onenode = onenode + '            "httpSettings":{\n'
             #onenode = onenode + '                "path": "' + node['path'] + '"\n'
             #onenode = onenode + '            },\n'
-            onenode = onenode + '            "quicSettings": {}\n'
             onenode = onenode + '		}\n'
             onenode = onenode + '	},'
 

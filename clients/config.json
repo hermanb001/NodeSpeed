@@ -1,0 +1,64 @@
+{
+	"log": {
+		//"loglevel": "warning",
+		//"access": "/access.log",
+		//"error": "/error.log"
+	},
+	"inbound": {
+		"port": 1087,
+		"protocol": "socks",  //  SOCKS 5//socks,http...
+	        "sniffing": {
+		  "enabled": true,
+		  "destOverride": ["http", "tls"]
+	        },
+		"settings": {
+			"auth": "noauth", //socksï¼noauth  socks 
+			"udp": true
+		}
+	},
+	"inboundDetour": [{
+		"protocol": "http",  //socks,http...
+		"port": 8080,
+		"settings": {"auth": "noauth", "udp": true}
+	}],
+	"outbound": {
+        "protocol": "vmess",
+        "settings": {
+            "vnext":
+            [
+                {
+                    "address": "v8.ssrsub.com",
+                    "port": 443,
+                    "users": [{"id": "8cf83f44-79ff-4e50-be1a-585c82338912", "alterId": 0, "security": "auto", "level": 0}]
+                }
+            ],
+            "servers": null,
+            "response": null
+        },
+        "streamSettings":
+        {
+            "network": "ws",
+            "security": "tls",
+            "tlsSettings": {"sni":""},
+            "wsSettings": 
+            {
+                "path": "/ssrsub"
+            }
+		}
+	},
+
+	"levels": {
+		"100": {
+			"handshake": 4,
+			"connIdle": 300,
+			"uplinkOnly": 2,
+			"downlinkOnly": 5,
+			"statsUserUplink": false,
+			"statsUserDownlink": false
+		}
+	},
+	"system": {
+		"statsInboundUplink": false,
+		"statsInboundDownlink": false
+	}
+}

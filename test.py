@@ -22,12 +22,12 @@ try:
 except:
     url = 'init'
 
-confile = './clients/v2ray-core/config.json'
+confile = './clients/config.json'
 url = 'https://raw.githubusercontent.com/vpei/Free-Node-Merge/main/out/node.txt'
 print('url: ' + url)
 
 # 测试单个节点
-#j = 'vmess://eyJwcyI6ICLwn4e38J+HtC3nvZfpqazlsLzkupotZ2VybWFueS1kdXNzZWxkb3JmLm1haDNIb2V0LmNvbSIsICJhZGQiOiAiZ2VybWFueS1kdXNzZWxkb3JmLm1haDNIb2V0LmNvbSIsICJ0eXBlIjogInZtZXNzIiwgImNvdW50cnkiOiAi8J+HqfCfh6pERSIsICJwb3J0IjogIjQ0MyIsICJpZCI6ICJhYmE1MGRkNC01NDg0LTNiMDUtYjE0YS00NjYxY2FmODYyZDUiLCAiYWlkIjogIjQiLCAic2N5IjogImF1dG8iLCAibmV0IjogIndzIiwgInBhdGgiOiAiL3dzIiwgInNlcnZlcnBzIjogImdlcm1hbnktZHVzc2VsZG9yZi5tYWgzSG9ldC5jb20iLCAiaGVhZGVycyI6ICIiLCAiaHR0cC1vcHRzIjogIiIsICJoMi1vcHRzIjogIiIsICJ0bHMiOiAidHJ1ZSIsICJza2lwLWNlcnQtdmVyaWZ5IjogInRydWUiLCAiaG9zdCI6ICJnZXJtYW55LWR1c3NlbGRvcmYubWFoM0hvZXQuY29tIn0='
+#j = 'vmess://ew0KICAidiI6ICIyIiwNCiAgInBzIjogIvCfh7rwn4e4Lee+juWbvS12OC5zc3JzdWIuY29tIiwNCiAgImFkZCI6ICJ2OC5zc3JzdWIuY29tIiwNCiAgInBvcnQiOiAiNDQzIiwNCiAgImlkIjogIjhjZjgzZjQ0LTc5ZmYtNGU1MC1iZTFhLTU4NWM4MjMzODkxMiIsDQogICJhaWQiOiAiMCIsDQogICJzY3kiOiAiYXV0byIsDQogICJuZXQiOiAid3MiLA0KICAidHlwZSI6ICJ2bWVzcyIsDQogICJob3N0IjogIiIsDQogICJwYXRoIjogIi9zc3JzdWIiLA0KICAidGxzIjogInRscyIsDQogICJzbmkiOiAiIg0KfQ=='
 #onenode = PingIP.node_config_json(j, confile)
 #kbs = PingIP.nodespeedtest()
 
